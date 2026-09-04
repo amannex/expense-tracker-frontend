@@ -38,7 +38,7 @@ const NotFound = () => {
         <Button
           as={Link}
           to="/"
-          colorScheme="blue"
+          colorScheme="brand"
           leftIcon={<HomeIcon size={16} />}
         >
           Go to Home

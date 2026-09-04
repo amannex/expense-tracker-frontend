@@ -32,6 +32,7 @@ const Navbar = () => {
   return (
     <Box>
       <Flex
+        flexShrink={0}
         bg={useColorModeValue('white', 'gray.800')}
         color={useColorModeValue('gray.600', 'white')}
         minH={'60px'}
@@ -71,7 +72,7 @@ const Navbar = () => {
             <Text
               textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
               fontFamily={'heading'}
-              color={useColorModeValue('gray.800', 'white')}
+              color={useColorModeValue('gray.900', 'white')}
               ml={2}
             >
               Expense Tracker
@@ -85,7 +86,7 @@ const Navbar = () => {
           direction={'row'}
           spacing={6}
         >
-          <Button onClick={logout} colorScheme="blue" variant="ghost">
+          <Button onClick={logout} colorScheme="brand" variant="ghost">
             Sign Out
           </Button>
         </Stack>

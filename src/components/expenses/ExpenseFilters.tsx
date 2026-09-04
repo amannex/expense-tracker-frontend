@@ -220,7 +220,7 @@ const ExpenseFilters = ({ onFilter }: ExpenseFiltersProps) => {
         <Button variant="outline" onClick={handleReset}>
           Reset
         </Button>
-        <Button colorScheme="blue" onClick={handleApplyFilter}>
+        <Button colorScheme="brand" onClick={handleApplyFilter}>
           Apply Filters
         </Button>
       </HStack>

@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import {
   Box,
+  Card,
+  CardBody,
+  CardHeader,
   Heading,
   Text,
-  Flex,
   useColorModeValue,
   Progress,
   VStack,
@@ -78,32 +80,33 @@ const CategoryBreakdown = ({ expenses }: CategoryBreakdownProps) => {
   
   if (expenses.length === 0) {
     return (
-      <Box
+      <Card
         bg={bgColor}
-        p={6}
-        borderRadius="lg"
-        boxShadow="md"
         height="100%"
+        variant="outline"
+        borderColor="gray.100"
       >
-        <Heading size="md" mb={4}>
-          Category Breakdown
-        </Heading>
-        <Text color="gray.500">No expense data available</Text>
-      </Box>
+        <CardHeader pb={0}>
+          <Heading size="md">Category Breakdown</Heading>
+        </CardHeader>
+        <CardBody>
+          <Text color="gray.500">No expense data available</Text>
+        </CardBody>
+      </Card>
     );
   }
   
   return (
-    <Box
+    <Card
       bg={bgColor}
-      p={6}
-      borderRadius="lg"
-      boxShadow="md"
       height="100%"
+      variant="outline"
+      borderColor="gray.100"
     >
-      <Heading size="md" mb={6}>
-        Category Breakdown
-      </Heading>
+      <CardHeader pb={0}>
+        <Heading size="md">Category Breakdown</Heading>
+      </CardHeader>
+      <CardBody>
       
       <VStack spacing={4} align="stretch">
         {categoryData.map((category) => (
@@ -132,7 +135,8 @@ const CategoryBreakdown = ({ expenses }: CategoryBreakdownProps) => {
           </Box>
         ))}
       </VStack>
-    </Box>
+      </CardBody>
+    </Card>
   );
 };
 

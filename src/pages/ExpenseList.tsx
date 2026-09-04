@@ -119,7 +119,7 @@ const ExpenseList = () => {
           as={Link}
           to="/expenses/add"
           leftIcon={<PlusIcon size={18} />}
-          colorScheme="blue"
+          colorScheme="brand"
         >
           Add Expense
         </Button>

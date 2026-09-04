@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import {
   Box,
+  Card,
+  CardBody,
+  CardHeader,
   Grid,
   GridItem,
   Heading,
@@ -85,14 +88,19 @@ const Dashboard = () => {
   return (
     <Box>
       <HStack justify="space-between" mb={6}>
-        <Heading as="h1" size="xl">
-          Dashboard
-        </Heading>
+        <Box>
+          <Text color="brand.600" fontSize="sm" fontWeight="bold" mb={1}>
+            Welcome back
+          </Text>
+          <Heading as="h1" size="xl">
+            Dashboard
+          </Heading>
+        </Box>
         <Button
           as={Link}
           to="/expenses/add"
           leftIcon={<PlusIcon size={18} />}
-          colorScheme="blue"
+          colorScheme="brand"
         >
           Add Expense
         </Button>
@@ -106,10 +114,11 @@ const Dashboard = () => {
         mb={6}
       >
         <GridItem>
-          <Box bg="white" p={6} borderRadius="lg" boxShadow="md">
-            <Heading size="md" mb={4}>
-              Recent Expenses
-            </Heading>
+          <Card bg="white" variant="outline" borderColor="gray.100" minH="252px">
+            <CardHeader pb={0}>
+              <Heading size="md">Recent Expenses</Heading>
+            </CardHeader>
+            <CardBody pt={4}>
             <ExpenseList
               expenses={recentExpenses}
               onDelete={handleDelete}
@@ -121,14 +130,15 @@ const Dashboard = () => {
                   as={Link}
                   to="/expenses"
                   variant="outline"
-                  colorScheme="blue"
+                  colorScheme="brand"
                   size="sm"
                 >
                   View All Expenses
                 </Button>
               </Box>
             )}
-          </Box>
+            </CardBody>
+          </Card>
         </GridItem>
         
         <GridItem>

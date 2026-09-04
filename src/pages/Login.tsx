@@ -47,14 +47,14 @@ const Login = () => {
       minH="100vh"
       align="center"
       justify="center"
-      bg={useColorModeValue('gray.50', 'gray.800')}
+      bg={useColorModeValue('#f6f8f7', 'gray.800')}
     >
       <Stack spacing={8} mx="auto" maxW="lg" py={12} px={6} w={{ base: '90%', md: '450px' }}>
         <Stack align="center">
           <Flex
             align="center"
             justify="center"
-            bg="brand.500"
+            bg="brand.600"
             color="white"
             boxSize={14}
             borderRadius="full"
@@ -125,7 +125,7 @@ const Login = () => {
               <Stack spacing={6}>
                 <Button
                   type="submit"
-                  colorScheme="blue"
+                  colorScheme="brand"
                   mt={4}
                   isLoading={isLoading}
                 >

@@ -139,7 +139,7 @@ const ExpenseForm = ({ initialData, onSubmit, isEditing = false }: ExpenseFormPr
         
         <Button
           type="submit"
-          colorScheme="blue"
+          colorScheme="brand"
           width="full"
           mt={4}
           isLoading={isSubmitting}

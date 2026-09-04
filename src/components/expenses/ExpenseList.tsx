@@ -121,7 +121,7 @@ const ExpenseList = ({ expenses, onDelete, isLoading = false }: ExpenseListProps
         <Button
           as={Link}
           to="/expenses/add"
-          colorScheme="blue"
+          colorScheme="brand"
           mt={4}
         >
           Add Expense

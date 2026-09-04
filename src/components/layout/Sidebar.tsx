@@ -3,6 +3,7 @@ import {
   PieChartIcon,
   ListIcon, 
   PlusCircleIcon,
+  WalletIcon,
 } from 'lucide-react';
 import { NavLink as RouterLink, useLocation } from 'react-router-dom';
 
@@ -46,10 +47,49 @@ const Sidebar = () => {
       borderRightColor={useColorModeValue('gray.200', 'gray.700')}
       w={{ base: 'full', md: 60 }}
       pos="fixed"
-      h="full"
+      top="60px"
+      h="calc(100vh - 60px)"
+      overflowY="auto"
       display={{ base: 'none', md: 'block' }}
+      px={4}
+      py={6}
     >
-      <Box p={5}>
+      <Box
+        bg="gray.900"
+        color="white"
+        borderRadius="2xl"
+        p={4}
+        mb={8}
+        boxShadow="0 12px 24px rgba(15, 23, 42, 0.12)"
+      >
+        <Flex align="center" gap={3}>
+          <Flex
+            align="center"
+            justify="center"
+            boxSize={10}
+            borderRadius="xl"
+            bg="brand.500"
+          >
+            <Icon as={WalletIcon} boxSize={5} />
+          </Flex>
+          <Box>
+            <Text fontSize="sm" fontWeight="bold">Expense Tracker</Text>
+            <Text fontSize="xs" color="gray.400">Stay in control</Text>
+          </Box>
+        </Flex>
+      </Box>
+      <Box>
+        <Text
+          px={3}
+          mb={3}
+          fontSize="xs"
+          fontWeight="bold"
+          letterSpacing="wider"
+          textTransform="uppercase"
+          color="gray.400"
+        >
+          Overview
+        </Text>
         <Stack spacing={2}>
           <SidebarItem icon={PieChartIcon} to="/">
             Dashboard
