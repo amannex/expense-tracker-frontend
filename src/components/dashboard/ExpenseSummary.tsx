@@ -121,7 +121,7 @@ const ExpenseSummary = ({ expenses, period = 'month' }: ExpenseSummaryProps) => 
           <Flex justify="space-between" align="flex-start">
             <Stat sx={{ '& > *': { marginBottom: 0 } }}>
               <StatLabel fontSize="xs" lineHeight="1.2" mb={1} fontWeight="bold" letterSpacing="0.06em" textTransform="uppercase" color="gray.500">Average Expense</StatLabel>
-              <StatNumber fontSize="xl" lineHeight="1.1">{formatCurrency(averageExpense)}</StatNumber>
+              <StatNumber fontSize="2xl" lineHeight="1.5" mt={2}>{formatCurrency(averageExpense)}</StatNumber>
               <StatHelpText fontSize="sm" lineHeight="1.2" mt={1} mb={0}>Per Transaction</StatHelpText>
             </Stat>
             <Flex w="2.75rem" h="2.75rem" align="center" justify="center" rounded="xl" bg={iconBg2} color="green.500">
@@ -136,7 +136,7 @@ const ExpenseSummary = ({ expenses, period = 'month' }: ExpenseSummaryProps) => 
           <Flex justify="space-between" align="flex-start">
             <Stat sx={{ '& > *': { marginBottom: 0 } }}>
               <StatLabel fontSize="xs" lineHeight="1.2" mb={1} fontWeight="bold" letterSpacing="0.06em" textTransform="uppercase" color="gray.500">Highest Category</StatLabel>
-              <StatNumber fontSize="xl" lineHeight="1.1">{mostExpensiveCategory[0]}</StatNumber>
+              <StatNumber fontSize="2xl" lineHeight="1.5" mt={2}>{mostExpensiveCategory[0]}</StatNumber>
               <StatHelpText fontSize="sm" lineHeight="1.2" mt={1} mb={0}>{formatCurrency(mostExpensiveCategory[1])}</StatHelpText>
             </Stat>
             <Flex w="2.75rem" h="2.75rem" align="center" justify="center" rounded="xl" bg={iconBg3} color="purple.500">
@@ -152,7 +152,7 @@ const ExpenseSummary = ({ expenses, period = 'month' }: ExpenseSummaryProps) => 
             <Flex justify="space-between" align="flex-start">
               <Stat sx={{ '& > *': { marginBottom: 0 } }}>
                 <StatLabel fontSize="xs" lineHeight="1.2" mb={1} fontWeight="bold" letterSpacing="0.06em" textTransform="uppercase" color="gray.500">Total Transactions</StatLabel>
-                <StatNumber fontSize="xl" lineHeight="1.1">{expenses.length}</StatNumber>
+                <StatNumber fontSize="2xl" lineHeight="1.5" mt={2}>{expenses.length}</StatNumber>
                 <StatHelpText fontSize="sm" lineHeight="1.2" mt={1} mb={0}>{periodText}</StatHelpText>
               </Stat>
               <Flex w="2.75rem" h="2.75rem" align="center" justify="center" rounded="xl" bg={iconBg4} color="orange.500">
