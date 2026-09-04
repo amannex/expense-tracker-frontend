@@ -30,7 +30,7 @@ api.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error.response && error.response.status === 401) {
+    if (error.response && [401, 403].includes(error.response.status)) {
       // Clear token and redirect to login page
       localStorage.removeItem('token');
       window.location.href = '/login';

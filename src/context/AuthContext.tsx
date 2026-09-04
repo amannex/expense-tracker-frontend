@@ -3,12 +3,30 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 
+const getErrorMessage = (error: unknown, fallback: string) => {
+  if (axios.isAxiosError(error)) {
+    const responseData = error.response?.data;
+    if (typeof responseData === 'string' && responseData.trim()) {
+      return responseData;
+    }
+    if (
+      responseData &&
+      typeof responseData === 'object' &&
+      'message' in responseData &&
+      typeof responseData.message === 'string'
+    ) {
+      return responseData.message;
+    }
+  }
+  return fallback;
+};
+
 // Define the token payload type
 interface TokenPayload {
   sub: string;
   exp: number;
-  username: string;
-  email: string;
+  id?: number;
+  email?: string;
 }
 
 // Define the user type
@@ -79,13 +97,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         } else {
           // Token is valid
           setUser({
-            id: decoded.sub,
-            username: decoded.username,
-            email: decoded.email
+            id: decoded.id?.toString() ?? decoded.sub,
+            username: decoded.sub,
+            email: decoded.email ?? ''
           });
           setIsAuthenticated(true);
         }
-      } catch (error) {
+      } catch {
         // Invalid token
         logout();
       }
@@ -108,16 +126,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const decoded = jwtDecode<TokenPayload>(token);
       
       setUser({
-        id: decoded.sub,
+        id: decoded.id?.toString() ?? decoded.sub,
         username: userName,
         email
       });
       
       setIsAuthenticated(true);
       navigate('/');
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Login error:', error);
-      setError(error.response?.data?.message || 'Login failed. Please try again.');
+      setError(getErrorMessage(error, 'Login failed. Please try again.'));
     } finally {
       setIsLoading(false);
     }
@@ -139,16 +157,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const decoded = jwtDecode<TokenPayload>(token);
       
       setUser({
-        id: decoded.sub,
+        id: decoded.id?.toString() ?? decoded.sub,
         username: userName,
         email: userEmail
       });
       
       setIsAuthenticated(true);
       navigate('/');
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Registration error:', error);
-      setError(error.response?.data?.message || 'Registration failed. Please try again.');
+      setError(getErrorMessage(error, 'Registration failed. Please try again.'));
     } finally {
       setIsLoading(false);
     }
