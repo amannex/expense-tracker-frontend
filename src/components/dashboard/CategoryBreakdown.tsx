@@ -13,6 +13,7 @@ import {
   GridItem,
 } from '@chakra-ui/react';
 import { Expense } from '../../types';
+import { CATEGORY_COLORS, DEFAULT_CATEGORY_COLOR } from '../../constants/categoryColors';
 
 interface CategoryBreakdownProps {
   expenses: Expense[];
@@ -24,19 +25,6 @@ interface CategoryData {
   percentage: number;
   color: string;
 }
-
-const CATEGORY_COLORS: Record<string, string> = {
-  Food: 'green.500',
-  Transportation: 'purple.500',
-  Entertainment: 'pink.500',
-  Housing: 'blue.500',
-  Utilities: 'cyan.500',
-  Healthcare: 'red.500',
-  Education: 'yellow.500',
-  Shopping: 'orange.500',
-  Travel: 'teal.500',
-  Other: 'gray.500',
-};
 
 const CategoryBreakdown = ({ expenses }: CategoryBreakdownProps) => {
   const [categoryData, setCategoryData] = useState<CategoryData[]>([]);
@@ -64,7 +52,7 @@ const CategoryBreakdown = ({ expenses }: CategoryBreakdownProps) => {
         name,
         amount,
         percentage: (amount / totalAmount) * 100,
-        color: CATEGORY_COLORS[name] || 'gray.500',
+        color: (CATEGORY_COLORS[name] || DEFAULT_CATEGORY_COLOR).text,
       }))
       .sort((a, b) => b.amount - a.amount);
     
@@ -128,9 +116,13 @@ const CategoryBreakdown = ({ expenses }: CategoryBreakdownProps) => {
             </Grid>
             <Progress
               value={category.percentage}
-              colorScheme={category.color.split('.')[0]}
               size="sm"
               borderRadius="full"
+              sx={{
+                '& > div': {
+                  background: category.color,
+                },
+              }}
             />
           </Box>
         ))}

@@ -22,6 +22,7 @@ import { ChevronDownIcon } from '@chakra-ui/icons';
 import { Edit2, Trash } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Expense } from '../../types';
+import { CATEGORY_COLORS, DEFAULT_CATEGORY_COLOR } from '../../constants/categoryColors';
 
 interface ExpenseListProps {
   expenses: Expense[];
@@ -30,42 +31,16 @@ interface ExpenseListProps {
 }
 
 const CategoryBadge = ({ category }: { category: string }) => {
-  let colorScheme;
-  
-  switch (category) {
-    case 'Food':
-      colorScheme = 'green';
-      break;
-    case 'Transportation':
-      colorScheme = 'purple';
-      break;
-    case 'Entertainment':
-      colorScheme = 'pink';
-      break;
-    case 'Housing':
-      colorScheme = 'blue';
-      break;
-    case 'Utilities':
-      colorScheme = 'cyan';
-      break;
-    case 'Healthcare':
-      colorScheme = 'red';
-      break;
-    case 'Education':
-      colorScheme = 'yellow';
-      break;
-    case 'Shopping':
-      colorScheme = 'orange';
-      break;
-    case 'Travel':
-      colorScheme = 'teal';
-      break;
-    default:
-      colorScheme = 'gray';
-  }
+  const colors = CATEGORY_COLORS[category] || DEFAULT_CATEGORY_COLOR;
   
   return (
-    <Badge colorScheme={colorScheme} borderRadius="full" px={2}>
+    <Badge
+      borderRadius="full"
+      px={2}
+      color={colors.text}
+      background={colors.background}
+      fontWeight="bold"
+    >
       {category}
     </Badge>
   );
