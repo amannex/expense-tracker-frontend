@@ -2,6 +2,7 @@ import { createContext, useState, useContext, useEffect, ReactNode } from 'react
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
+import { api } from '../services/api';
 
 const getErrorMessage = (error: unknown, fallback: string) => {
   if (axios.isAxiosError(error)) {
@@ -60,14 +61,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(!!token);
   const navigate = useNavigate();
 
-  // Configure axios with the base URL
-  const API_URL = 'http://localhost:8080/api';
-  
-  axios.defaults.baseURL = API_URL;
-
-  // Set the axios interceptor for adding the token to requests
+  // Keep authentication requests on the same configured client as expense requests.
   useEffect(() => {
-    const interceptor = axios.interceptors.request.use(
+    const interceptor = api.interceptors.request.use(
       config => {
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
@@ -80,7 +76,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     );
 
     return () => {
-      axios.interceptors.request.eject(interceptor);
+      api.interceptors.request.eject(interceptor);
     };
   }, [token]);
 
@@ -116,7 +112,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setError(null);
     
     try {
-      const response = await axios.post('/auth/login', { username, password });
+      const response = await api.post('/auth/login', { username, password });
       const { token, username: userName, email } = response.data;
       
       localStorage.setItem('token', token);
@@ -147,7 +143,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setError(null);
     
     try {
-      const response = await axios.post('/auth/register', { username, email, password });
+      const response = await api.post('/auth/register', { username, email, password });
       const { token, username: userName, email: userEmail } = response.data;
       
       localStorage.setItem('token', token);
