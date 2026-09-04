@@ -10,30 +10,33 @@ import AddExpense from './pages/AddExpense';
 import EditExpense from './pages/EditExpense';
 import NotFound from './pages/NotFound';
 import { AuthProvider } from './context/AuthContext';
+import { CurrencyProvider } from './context/CurrencyContext';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 
 function App() {
   return (
     <AuthProvider>
-      <Box minH="100vh">
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          
-          <Route path="/" element={
-            <ProtectedRoute>
-              <Layout />
-            </ProtectedRoute>
-          }>
-            <Route index element={<Dashboard />} />
-            <Route path="expenses" element={<ExpenseList />} />
-            <Route path="expenses/add" element={<AddExpense />} />
-            <Route path="expenses/edit/:id" element={<EditExpense />} />
-          </Route>
-          
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Box>
+      <CurrencyProvider>
+        <Box minH="100vh">
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+
+            <Route path="/" element={
+              <ProtectedRoute>
+                <Layout />
+              </ProtectedRoute>
+            }>
+              <Route index element={<Dashboard />} />
+              <Route path="expenses" element={<ExpenseList />} />
+              <Route path="expenses/add" element={<AddExpense />} />
+              <Route path="expenses/edit/:id" element={<EditExpense />} />
+            </Route>
+
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Box>
+      </CurrencyProvider>
     </AuthProvider>
   );
 }

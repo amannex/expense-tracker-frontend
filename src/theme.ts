@@ -40,6 +40,28 @@ const theme = extendTheme({
     },
   },
   components: {
+    Heading: {
+      baseStyle: {
+        color: 'gray.900',
+        fontWeight: '700',
+        letterSpacing: '-0.02em',
+      },
+      sizes: {
+        xl: {
+          fontSize: { base: '2xl', md: '3xl' },
+          lineHeight: 1.15,
+        },
+        md: {
+          fontSize: 'lg',
+          lineHeight: 1.3,
+        },
+      },
+    },
+    Text: {
+      baseStyle: {
+        lineHeight: 1.5,
+      },
+    },
     Button: {
       baseStyle: {
         fontWeight: 'semibold',

@@ -14,6 +14,7 @@ import {
 } from '@chakra-ui/react';
 import { Expense } from '../../types';
 import { CATEGORY_COLORS, DEFAULT_CATEGORY_COLOR } from '../../constants/categoryColors';
+import { useCurrency } from '../../context/CurrencyContext';
 
 interface CategoryBreakdownProps {
   expenses: Expense[];
@@ -29,6 +30,7 @@ interface CategoryData {
 const CategoryBreakdown = ({ expenses }: CategoryBreakdownProps) => {
   const [categoryData, setCategoryData] = useState<CategoryData[]>([]);
   const bgColor = useColorModeValue('white', 'gray.800');
+  const { formatCurrency } = useCurrency();
   
   useEffect(() => {
     if (expenses.length === 0) {
@@ -58,13 +60,6 @@ const CategoryBreakdown = ({ expenses }: CategoryBreakdownProps) => {
     
     setCategoryData(data);
   }, [expenses]);
-  
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-    }).format(amount);
-  };
   
   if (expenses.length === 0) {
     return (
@@ -101,15 +96,15 @@ const CategoryBreakdown = ({ expenses }: CategoryBreakdownProps) => {
           <Box key={category.name}>
             <Grid templateColumns="1fr auto auto" gap={2} mb={1}>
               <GridItem>
-                <Text fontWeight="medium">{category.name}</Text>
+                <Text fontSize="sm" fontWeight="semibold">{category.name}</Text>
               </GridItem>
               <GridItem>
-                <Text fontWeight="bold" color={category.color}>
+                <Text fontSize="sm" fontWeight="bold" color={category.color}>
                   {formatCurrency(category.amount)}
                 </Text>
               </GridItem>
               <GridItem>
-                <Text fontSize="sm" color="gray.500">
+                <Text fontSize="xs" color="gray.500">
                   {category.percentage.toFixed(1)}%
                 </Text>
               </GridItem>

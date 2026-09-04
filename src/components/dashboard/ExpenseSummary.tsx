@@ -15,6 +15,7 @@ import {
 } from '@chakra-ui/react';
 import { Banknote, TrendingUp, Calendar, Receipt } from 'lucide-react';
 import { Expense } from '../../types';
+import { useCurrency } from '../../context/CurrencyContext';
 
 interface ExpenseSummaryProps {
   expenses: Expense[];
@@ -30,6 +31,7 @@ const ExpenseSummary = ({ expenses, period = 'month' }: ExpenseSummaryProps) => 
   const iconBg2 = useColorModeValue('green.50', 'green.900');
   const iconBg3 = useColorModeValue('purple.50', 'purple.900');
   const iconBg4 = useColorModeValue('orange.50', 'orange.900');
+  const { formatCurrency } = useCurrency();
   
   // Calculate total expenses
   const totalAmount = expenses.reduce((acc, expense) => acc + expense.amount, 0);
@@ -47,15 +49,6 @@ const ExpenseSummary = ({ expenses, period = 'month' }: ExpenseSummaryProps) => 
   const averageExpense = expenses.length > 0 ? totalAmount / expenses.length : 0;
   const budgetRemaining = Math.max(DEFAULT_MONTHLY_BUDGET - totalAmount, 0);
   const budgetProgress = Math.min((totalAmount / DEFAULT_MONTHLY_BUDGET) * 100, 100);
-  
-  // Format currency
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      maximumFractionDigits: 0,
-    }).format(amount);
-  };
   
   let periodText = '';
   switch (period) {
@@ -90,7 +83,7 @@ const ExpenseSummary = ({ expenses, period = 'month' }: ExpenseSummaryProps) => 
         >
           <CardBody p={{ base: 6, md: 8 }} display="flex" flexDirection="column" justifyContent="space-between">
             <Flex justify="space-between" align="flex-start">
-              <Text fontSize="sm" fontWeight="semibold" color="whiteAlpha.800">
+              <Text fontSize="xs" fontWeight="bold" letterSpacing="0.08em" textTransform="uppercase" color="whiteAlpha.800">
                 Total Expenses
               </Text>
               <Flex
@@ -104,11 +97,11 @@ const ExpenseSummary = ({ expenses, period = 'month' }: ExpenseSummaryProps) => 
                 <Icon as={Banknote} boxSize={5} />
               </Flex>
             </Flex>
-            <Stat mt={8}>
-              <StatNumber fontSize={{ base: '4xl', md: '5xl' }} letterSpacing="tight">
+            <Stat mt={8} sx={{ '& > *': { marginBottom: 0 } }}>
+              <StatNumber fontSize={{ base: '3xl', md: '4xl' }} lineHeight="1.05" letterSpacing="tight">
                 {formatCurrency(totalAmount)}
               </StatNumber>
-              <StatHelpText color="whiteAlpha.800" mb={0}>{periodText}</StatHelpText>
+              <StatHelpText fontSize="sm" lineHeight="1.2" mt={1} color="whiteAlpha.800" mb={0}>{periodText}</StatHelpText>
             </Stat>
           </CardBody>
           <Flex
@@ -126,10 +119,10 @@ const ExpenseSummary = ({ expenses, period = 'month' }: ExpenseSummaryProps) => 
       <Card bg={bgColor} variant="outline" borderColor="gray.100" transition="all 0.2s" _hover={{ transform: 'translateY(-3px)', boxShadow: 'lg' }}>
         <CardBody p={5}>
           <Flex justify="space-between" align="flex-start">
-            <Stat>
-              <StatLabel color="gray.500">Average Expense</StatLabel>
-              <StatNumber fontSize="2xl">{formatCurrency(averageExpense)}</StatNumber>
-              <StatHelpText>Per Transaction</StatHelpText>
+            <Stat sx={{ '& > *': { marginBottom: 0 } }}>
+              <StatLabel fontSize="xs" lineHeight="1.2" mb={1} fontWeight="bold" letterSpacing="0.06em" textTransform="uppercase" color="gray.500">Average Expense</StatLabel>
+              <StatNumber fontSize="xl" lineHeight="1.1">{formatCurrency(averageExpense)}</StatNumber>
+              <StatHelpText fontSize="sm" lineHeight="1.2" mt={1} mb={0}>Per Transaction</StatHelpText>
             </Stat>
             <Flex w="2.75rem" h="2.75rem" align="center" justify="center" rounded="xl" bg={iconBg2} color="green.500">
               <Icon as={TrendingUp} boxSize={5} />
@@ -141,10 +134,10 @@ const ExpenseSummary = ({ expenses, period = 'month' }: ExpenseSummaryProps) => 
       <Card bg={bgColor} variant="outline" borderColor="gray.100" transition="all 0.2s" _hover={{ transform: 'translateY(-3px)', boxShadow: 'lg' }}>
         <CardBody p={5}>
           <Flex justify="space-between" align="flex-start">
-            <Stat>
-              <StatLabel color="gray.500">Highest Category</StatLabel>
-              <StatNumber fontSize="2xl">{mostExpensiveCategory[0]}</StatNumber>
-              <StatHelpText>{formatCurrency(mostExpensiveCategory[1])}</StatHelpText>
+            <Stat sx={{ '& > *': { marginBottom: 0 } }}>
+              <StatLabel fontSize="xs" lineHeight="1.2" mb={1} fontWeight="bold" letterSpacing="0.06em" textTransform="uppercase" color="gray.500">Highest Category</StatLabel>
+              <StatNumber fontSize="xl" lineHeight="1.1">{mostExpensiveCategory[0]}</StatNumber>
+              <StatHelpText fontSize="sm" lineHeight="1.2" mt={1} mb={0}>{formatCurrency(mostExpensiveCategory[1])}</StatHelpText>
             </Stat>
             <Flex w="2.75rem" h="2.75rem" align="center" justify="center" rounded="xl" bg={iconBg3} color="purple.500">
               <Icon as={Receipt} boxSize={5} />
@@ -157,10 +150,10 @@ const ExpenseSummary = ({ expenses, period = 'month' }: ExpenseSummaryProps) => 
         <Card bg={bgColor} variant="outline" borderColor="gray.100" h="100%" transition="all 0.2s" _hover={{ transform: 'translateY(-3px)', boxShadow: 'lg' }}>
           <CardBody p={5}>
             <Flex justify="space-between" align="flex-start">
-              <Stat>
-                <StatLabel color="gray.500">Total Transactions</StatLabel>
-                <StatNumber fontSize="2xl">{expenses.length}</StatNumber>
-                <StatHelpText>{periodText}</StatHelpText>
+              <Stat sx={{ '& > *': { marginBottom: 0 } }}>
+                <StatLabel fontSize="xs" lineHeight="1.2" mb={1} fontWeight="bold" letterSpacing="0.06em" textTransform="uppercase" color="gray.500">Total Transactions</StatLabel>
+                <StatNumber fontSize="xl" lineHeight="1.1">{expenses.length}</StatNumber>
+                <StatHelpText fontSize="sm" lineHeight="1.2" mt={1} mb={0}>{periodText}</StatHelpText>
               </Stat>
               <Flex w="2.75rem" h="2.75rem" align="center" justify="center" rounded="xl" bg={iconBg4} color="orange.500">
                 <Icon as={Calendar} boxSize={5} />
@@ -174,7 +167,7 @@ const ExpenseSummary = ({ expenses, period = 'month' }: ExpenseSummaryProps) => 
         <Card bg={bgColor} variant="outline" borderColor="gray.100" h="100%" transition="all 0.2s" _hover={{ transform: 'translateY(-3px)', boxShadow: 'lg' }}>
           <CardBody p={5}>
             <Flex justify="space-between" align="flex-start" mb={5}>
-              <Text fontSize="sm" fontWeight="semibold" color="gray.500">
+              <Text               fontSize="xs" fontWeight="bold" letterSpacing="0.06em" textTransform="uppercase" color="gray.500">
                 Monthly Budget
               </Text>
               <Text fontSize="sm" fontWeight="bold" color="brand.600">
@@ -182,7 +175,7 @@ const ExpenseSummary = ({ expenses, period = 'month' }: ExpenseSummaryProps) => 
               </Text>
             </Flex>
             <Flex align="baseline" gap={2} mb={3}>
-              <Text fontSize="2xl" fontWeight="bold" color="gray.800">
+              <Text fontSize="xl" fontWeight="bold" lineHeight="1.1" color="gray.800">
                 {formatCurrency(budgetRemaining)}
               </Text>
               <Text fontSize="sm" color="gray.500">remaining</Text>

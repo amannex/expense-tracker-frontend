@@ -23,6 +23,7 @@ import { Edit2, Trash } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Expense } from '../../types';
 import { CATEGORY_COLORS, DEFAULT_CATEGORY_COLOR } from '../../constants/categoryColors';
+import { useCurrency } from '../../context/CurrencyContext';
 
 interface ExpenseListProps {
   expenses: Expense[];
@@ -50,6 +51,7 @@ const ExpenseList = ({ expenses, onDelete, isLoading = false }: ExpenseListProps
   const toast = useToast();
   const bg = useColorModeValue('white', 'gray.800');
   const hoverBg = useColorModeValue('gray.50', 'gray.700');
+  const { formatCurrency } = useCurrency();
   
   const handleDelete = async (id: string) => {
     try {
@@ -69,13 +71,6 @@ const ExpenseList = ({ expenses, onDelete, isLoading = false }: ExpenseListProps
         isClosable: true,
       });
     }
-  };
-  
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-    }).format(amount);
   };
   
   const formatDate = (dateString: string) => {
@@ -107,7 +102,7 @@ const ExpenseList = ({ expenses, onDelete, isLoading = false }: ExpenseListProps
   
   return (
     <Box overflowX="auto" bg={bg} borderRadius="lg" boxShadow="md">
-      <Table variant="simple">
+      <Table variant="simple" size="sm">
         <Thead>
           <Tr>
             <Th>Description</Th>
