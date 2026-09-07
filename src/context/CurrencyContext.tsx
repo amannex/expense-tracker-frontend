@@ -6,23 +6,22 @@ interface CurrencyOption {
   code: CurrencyCode;
   name: string;
   symbol: string;
-  rateFromUsd: number;
 }
 
 export const CURRENCIES: CurrencyOption[] = [
-  { code: 'USD', name: 'US Dollar', symbol: '$', rateFromUsd: 1 },
-  { code: 'EUR', name: 'Euro', symbol: '€', rateFromUsd: 0.92 },
-  { code: 'GBP', name: 'British Pound', symbol: '£', rateFromUsd: 0.78 },
-  { code: 'INR', name: 'Indian Rupee', symbol: '₹', rateFromUsd: 83.1 },
-  { code: 'CAD', name: 'Canadian Dollar', symbol: 'CA$', rateFromUsd: 1.36 },
-  { code: 'AUD', name: 'Australian Dollar', symbol: 'A$', rateFromUsd: 1.52 },
-  { code: 'JPY', name: 'Japanese Yen', symbol: '¥', rateFromUsd: 149.5 },
+  { code: 'USD', name: 'US Dollar', symbol: '$' },
+  { code: 'EUR', name: 'Euro', symbol: '€' },
+  { code: 'GBP', name: 'British Pound', symbol: '£' },
+  { code: 'INR', name: 'Indian Rupee', symbol: '₹' },
+  { code: 'CAD', name: 'Canadian Dollar', symbol: 'CA$' },
+  { code: 'AUD', name: 'Australian Dollar', symbol: 'A$' },
+  { code: 'JPY', name: 'Japanese Yen', symbol: '¥' },
 ];
 
 interface CurrencyContextValue {
   currency: CurrencyCode;
   setCurrency: (currency: CurrencyCode) => void;
-  formatCurrency: (amountInUsd: number) => string;
+  formatCurrency: (amount: number) => string;
 }
 
 const CurrencyContext = createContext<CurrencyContextValue | undefined>(undefined);
@@ -41,12 +40,12 @@ export const CurrencyProvider = ({ children }: { children: ReactNode }) => {
   const formatCurrency = useMemo(() => {
     const selectedCurrency = CURRENCIES.find((option) => option.code === currency) || CURRENCIES[0];
 
-    return (amountInUsd: number) =>
+    return (amount: number) =>
       new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: selectedCurrency.code,
         maximumFractionDigits: selectedCurrency.code === 'JPY' ? 0 : 2,
-      }).format(amountInUsd * selectedCurrency.rateFromUsd);
+      }).format(amount);
   }, [currency]);
 
   return (

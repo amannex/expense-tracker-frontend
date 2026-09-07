@@ -7,6 +7,7 @@ import {
   Input,
   Select,
   Textarea,
+  Text,
   FormErrorMessage,
   VStack,
   useToast,
@@ -14,6 +15,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { ExpenseFormData } from '../../types';
+import { CURRENCIES, useCurrency } from '../../context/CurrencyContext';
 
 interface ExpenseFormProps {
   initialData?: ExpenseFormData;
@@ -38,6 +40,8 @@ const ExpenseForm = ({ initialData, onSubmit, isEditing = false }: ExpenseFormPr
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
   const toast = useToast();
+  const { currency } = useCurrency();
+  const selectedCurrency = CURRENCIES.find((option) => option.code === currency);
   
   const defaultValues: ExpenseFormData = initialData || {
     amount: 0,
@@ -89,7 +93,7 @@ const ExpenseForm = ({ initialData, onSubmit, isEditing = false }: ExpenseFormPr
     >
       <VStack spacing={4}>
         <FormControl isInvalid={!!errors.amount}>
-          <FormLabel htmlFor="amount">Amount</FormLabel>
+          <FormLabel htmlFor="amount">Amount ({currency})</FormLabel>
           <Input
             id="amount"
             type="number"
@@ -99,6 +103,9 @@ const ExpenseForm = ({ initialData, onSubmit, isEditing = false }: ExpenseFormPr
               min: { value: 0.01, message: 'Amount must be greater than 0' },
             })}
           />
+          <Text mt={1} fontSize="sm" color="gray.500">
+            Enter the amount in {selectedCurrency?.name}. You can change the currency from the dashboard.
+          </Text>
           <FormErrorMessage>{errors.amount?.message}</FormErrorMessage>
         </FormControl>
         
